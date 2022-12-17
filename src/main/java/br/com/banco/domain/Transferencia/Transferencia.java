@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import br.com.banco.domain.Conta.Conta;
@@ -41,11 +40,9 @@ public class Transferencia {
 	private Tipo tipo;
 	@Column(name = "NOME_OPERADOR_TRANSACAO", length = 50, nullable = true)
 	private String nomeOperadorTransacao;
-	
 
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "CONTA_ID", referencedColumnName = "ID_CONTA")
-    private Conta contaId;
-	
+	@JoinColumn(name = "CONTA_ID", referencedColumnName = "ID_CONTA")
+	private Conta contaId;
 
 }
