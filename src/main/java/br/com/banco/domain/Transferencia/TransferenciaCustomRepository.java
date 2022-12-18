@@ -18,7 +18,7 @@ public class TransferenciaCustomRepository {
         this.em = em;
     }
 
-    public List<Transferencia> find(Date dataTransferenciaInicio, Date dataTransferenciaFim,
+    public List<Transferencia> find(Long idConta, Date dataTransferenciaInicio, Date dataTransferenciaFim,
             String nomeOperadorTransacao) {
 
         String dataTransferenciaInicioFormatada;
@@ -26,6 +26,11 @@ public class TransferenciaCustomRepository {
 
         String query = "select * from TRANSFERENCIA as P";
         String condicao = " where ";
+
+        if (idConta != null) {
+            query += condicao + "P.CONTA_ID = " + idConta;
+            condicao = " and ";
+        }
 
         if (dataTransferenciaInicio != null && dataTransferenciaFim == null) {
 
