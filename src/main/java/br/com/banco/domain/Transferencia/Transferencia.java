@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.com.banco.domain.Conta.Conta;
 import lombok.AllArgsConstructor;
@@ -32,6 +34,7 @@ public class Transferencia {
 	@Column(name = "ID", nullable = true)
 	private Long id;
 	@Column(name = "DATA_TRANSFERENCIA", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataTransferencia;
 	@Column(name = "VALOR", nullable = true, precision = 10, scale = 2)
 	private Double valor;
