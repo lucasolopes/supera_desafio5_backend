@@ -6,7 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -18,8 +22,8 @@ public class TransferenciaCustomRepository {
         this.em = em;
     }
 
-    public List<Transferencia> find(Long idConta, Date dataTransferenciaInicio, Date dataTransferenciaFim,
-            String nomeOperadorTransacao) {
+    public Page<Transferencia> find(Long idConta, Date dataTransferenciaInicio, Date dataTransferenciaFim,
+            String nomeOperadorTransacao, Pageable pageable) {
 
         String dataTransferenciaInicioFormatada;
         String dataTransferenciaFimFormatada;
@@ -59,10 +63,24 @@ public class TransferenciaCustomRepository {
         if (nomeOperadorTransacao != null) {
             query += condicao + " P.NOME_OPERADOR_TRANSACAO =" + "'" + nomeOperadorTransacao + "'";
         }
+        //////////////////////////////////////////////////////////////////////////////////////////
+        Query queryResultado = em.createNativeQuery(query, Transferencia.class);
 
-        var q = em.createNativeQuery(query, Transferencia.class);
+        int pageNumber = pageable.getPageNumber();
+        int pageSize = pageable.getPageSize();
 
-        return q.getResultList();
+        queryResultado.setFirstResult((pageNumber) * pageSize);
+        queryResultado.setMaxResults(pageSize);
+
+        List<Transferencia> fooList = queryResultado.getResultList();
+        /////////////////////////////////////////////////////////////////////////////////////
+        Query queryTotal = em.createQuery("Select count(P.id) From TRANSFERENCIA P");
+
+        long countResult1 = (long) queryTotal.getSingleResult();
+        int i1 = (int) countResult1;
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        return new PageImpl<>(fooList, pageable, i1);
+
     }
 
     private Date adicionarDia(Date dt) {
