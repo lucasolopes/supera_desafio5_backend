@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.banco.domain.Conta.Conta;
+import br.com.banco.domain.Conta.ContaRepository;
 import br.com.banco.domain.Transferencia.DadosTransferencia;
-import br.com.banco.domain.Transferencia.Transferencia;
 import br.com.banco.domain.Transferencia.TransferenciaCustomRepository;
 import br.com.banco.domain.Transferencia.TransferenciaRepository;
 
@@ -28,6 +29,9 @@ public class ContaController {
     @Autowired
     TransferenciaRepository transferenciaRepository;
 
+    @Autowired
+    ContaRepository contaRepository;
+
     @GetMapping()
     public ResponseEntity<Page<DadosTransferencia>> findTransferenciaBycustom(
             @RequestParam(name = "IdConta", required = true) Long idConta,
@@ -36,7 +40,7 @@ public class ContaController {
             @RequestParam(name = "NomeOperador", required = false) String nomeOperadorTransacao,
             Pageable pageable) {
 
-        Optional<Transferencia> find = transferenciaRepository.findById(idConta);
+        Optional<Conta> find = contaRepository.findById(idConta);
         if (find.isPresent()) {
             return ResponseEntity.ok().body(transferenciaCustomRepository.find(idConta,
                     dataTransferenciaInicio,
