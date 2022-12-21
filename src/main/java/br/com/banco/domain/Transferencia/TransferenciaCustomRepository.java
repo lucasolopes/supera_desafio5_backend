@@ -31,10 +31,8 @@ public class TransferenciaCustomRepository {
         String query = "select * from TRANSFERENCIA as P";
         String condicao = " where ";
 
-        if (idConta != null) {
-            query += condicao + "P.CONTA_ID = " + idConta;
-            condicao = " and ";
-        }
+        query += condicao + "P.CONTA_ID = " + idConta;
+        condicao = " and ";
 
         if (dataTransferenciaInicio != null && dataTransferenciaFim == null) {
 
