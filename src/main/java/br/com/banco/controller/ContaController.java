@@ -36,7 +36,7 @@ public class ContaController {
 
     @GetMapping()
     public ResponseEntity<ContaDto> findTransferenciaBycustom(
-            @RequestParam(name = "IdConta", required = true) Long idConta,
+            @RequestParam(name = "NumConta", required = true) Long idConta,
             @RequestParam(name = "DataInicio", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataTransferenciaInicio,
             @RequestParam(name = "DataFim", required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") Date dataTransferenciaFim,
             @RequestParam(name = "NomeOperador", required = false) String nomeOperadorTransacao,
