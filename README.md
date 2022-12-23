@@ -16,7 +16,19 @@
 - Após isso execute o comando: 
 
                              java -jar <...caminhoParaSeuJar>
+                             
+                             
+- Caminho Api:
 
+                             http://localhost:8080/conta
+
+-Parametros de entrada Get :
+  - NumConta (Long) obrigatorio
+  - DataInicio (dd/MM/yyyy) opcional
+  - DataFim (dd/MM/yyyy) opcional
+  - NomeOperador (String) opcional 
+                             
+                             
 ## Requisitos de sistema
 
 - Possuir a JDK 11 
